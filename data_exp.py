@@ -19,12 +19,9 @@ def n_examples():
     files = [f for f in os.listdir(train_cut_heavy_load_path) if os.path.isfile(os.path.join(train_cut_heavy_load_path, f))]
     print("Number of heavy load examples :", len(files))
 
-
-def plt_wav_n(folder_path,n):
+def get_wav(folder_path,n):
     import numpy as np
     import wave
-    import matplotlib.pyplot as plt
-    import os
 
     # Get only wav files
     wav_files = [f for f in os.listdir(folder_path) if f.endswith(".wav")]
@@ -43,9 +40,36 @@ def plt_wav_n(folder_path,n):
         frames = wav_file.readframes(wav_file.getnframes())
         audio_array = np.frombuffer(frames, dtype=np.int16)
 
+    return audio_array, file_name
+
+def plt_wav_n(folder_path,n):
+    import matplotlib.pyplot as plt
+    import os
+
+    audio_array, file_name = get_wav(folder_path, n)
+
     plt.figure()
     plt.plot(audio_array)
     plt.title(f"Audio file: {os.path.basename(folder_path) +"/"+ file_name}")
     plt.xlabel("Sample index")
     plt.ylabel("Amplitude")
+    plt.grid()
+
+    plt.tight_layout()
+    plt.show()
+
+def plt_amp_hist(folder_path,n):
+    import matplotlib.pyplot as plt
+    import os
+
+    audio_array, file_name = get_wav(folder_path, n)
+
+    plt.figure()
+    plt.hist(audio_array, bins=50)
+    plt.title(f"Audio file: {os.path.basename(folder_path) + "/" + file_name}")
+    plt.title("Amplitude distribution")
+    plt.xlabel("Amplitude")
+    plt.ylabel("Count")
+    plt.grid()
+    plt.tight_layout()
     plt.show()
