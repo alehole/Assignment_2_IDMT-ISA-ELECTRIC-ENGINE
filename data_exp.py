@@ -19,23 +19,33 @@ def n_examples():
     files = [f for f in os.listdir(train_cut_heavy_load_path) if os.path.isfile(os.path.join(train_cut_heavy_load_path, f))]
     print("Number of heavy load examples :", len(files))
 
-def plt_wav():
+
+def plt_wav_n(folder_path,n):
     import numpy as np
-    import wave  # wave library. if you are using pip, try "pip install wave"
+    import wave
     import matplotlib.pyplot as plt
+    import os
 
-    good_folder_path = "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good/"  # update according your data folder path
-    file_name = "pure_0.wav"  # audio file. Hint: You can use os.listdir(folder_path) to list all the files in the folder.
+    # Get only wav files
+    wav_files = [f for f in os.listdir(folder_path) if f.endswith(".wav")]
+    wav_files.sort()
 
-    # Specify the audio file, for example:
-    my_wav_file = good_folder_path + file_name  # update it for your file.
+    # Check if n is within range
+    if n < 1 or n > len(wav_files):
+        print(f"Invalid number. Choose between 1 and {len(wav_files)}")
+        return
 
-    # Read the wav. file (my_wav_file) as an array (audio_array):
-    with wave.open(my_wav_file) as wav_file:
+    # Select nth file (1-based index)
+    file_name = wav_files[n-1]
+    my_wav_file = os.path.join(folder_path, file_name)
+
+    with wave.open(my_wav_file, "rb") as wav_file:
         frames = wav_file.readframes(wav_file.getnframes())
         audio_array = np.frombuffer(frames, dtype=np.int16)
 
     plt.figure()
     plt.plot(audio_array)
-    plt.title("Example of an audio file")
+    plt.title(f"Audio file: {os.path.basename(folder_path) +"/"+ file_name}")
+    plt.xlabel("Sample index")
+    plt.ylabel("Amplitude")
     plt.show()
