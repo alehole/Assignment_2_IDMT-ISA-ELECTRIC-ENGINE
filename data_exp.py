@@ -85,16 +85,12 @@ def statistics(folder_path,n):
             return np.nan
         x = np.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0)  # replace bad values
         return np.sqrt(np.mean(x.astype(np.float64) ** 2))
-
     audio_array, file_name = get_wav(folder_path, n)
-    print(audio_array)
-    # --- Basic statistics ---
+
     mean_val = np.mean(audio_array)
     var_val = np.var(audio_array)
     std_val = np.std(audio_array)
-    # --- RMS amplitude ---
     rms_val = safe_rms(audio_array)
-    # --- Peak-to-peak amplitude ---
     ptp_val = np.ptp(audio_array)  # max - min
 
     print(os.path.basename(folder_path) + "/" + file_name)

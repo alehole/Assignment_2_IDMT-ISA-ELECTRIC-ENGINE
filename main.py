@@ -19,9 +19,9 @@ def data_exploration():
     #data_exp.statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
     #data_exp.statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
 
-    data_exp.plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
-    data_exp.plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
-    data_exp.plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+    data_exp.plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 22)
+    data_exp.plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 22)
+    data_exp.plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 22)
 
 if __name__ == '__main__':
     data_exploration()
