@@ -102,14 +102,11 @@ def grid_search(X_train, y_train):
     ])
 
     grid = {
-        "svc__C": [1, 10, 100],
-        "svc__gamma": ["scale", 1e-3, 1e-4]
+        "svc__C": [0.1, 1, 10, 100],
+        "svc__gamma": ["scale",1, 0.1,  1e-3, 1e-4]
     }
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     gs = GridSearchCV(pipe, grid, scoring="accuracy", cv=cv, n_jobs=-1, verbose=1)
-
-
     gs.fit(X_train, y_train)
 
     return gs.best_params_, gs.best_score_, gs.best_estimator_
-
