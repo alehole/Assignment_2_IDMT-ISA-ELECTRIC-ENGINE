@@ -137,3 +137,4 @@ def plt_fft_wav_n(folder_path,n):
     plt.ylabel('Amplitude |Y(f)|')
     plt.grid(True)
     plt.show()
+
