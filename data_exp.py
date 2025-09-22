@@ -2,6 +2,24 @@ import os
 Fs=44100
 dt=1.0/Fs
 
+def main():
+    n_examples()
+
+    #plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
+    #plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
+    #plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+
+    #plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
+    #plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
+    #plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+
+    #statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
+    #statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
+    #statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+
+    plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 22)
+    plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 22)
+    plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 22)
 
 def n_examples():
     train_cut_good_path = "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good"
