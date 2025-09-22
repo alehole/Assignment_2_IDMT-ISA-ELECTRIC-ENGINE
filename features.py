@@ -1,8 +1,6 @@
 import numpy as np
 import glob, os
 
-
-
 ## Load datasets
 def load_dataset(paths_and_labels, pattern="*.wav"):
     X, y = [], []
