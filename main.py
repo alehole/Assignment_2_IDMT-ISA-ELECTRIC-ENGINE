@@ -3,7 +3,7 @@ import data_exp,SVM_Classifier
 import features as ft
 
 if __name__ == '__main__':
-    #data_exploration()
+    #data_exp.main()
     train_paths_and_labels = [
         ("good", "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good"),
         ("broken", "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken"),

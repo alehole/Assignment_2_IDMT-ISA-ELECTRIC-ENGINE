@@ -1,5 +1,6 @@
 import numpy as np
 import glob, os
+from scipy.fft import fft, ifft, fftfreq
 
 ## Load datasets
 def load_dataset(paths_and_labels, pattern="*.wav"):
@@ -33,6 +34,7 @@ def features(folder_path):
     if audio_array.size == 0 or len(audio_array) == 0:
         return np.nan
 
+    # Time domain features
     mean_val = np.mean(audio_array)
     var_val = np.var(audio_array)
     std_val = np.std(audio_array)
@@ -40,5 +42,27 @@ def features(folder_path):
     ptp_val = np.ptp(audio_array)  # max - min
     zcr_val = float(((audio_array[:-1] * audio_array[1:]) < 0).mean()) # 2) Zero-crossing rate (proxy for dominant freq)
 
-    # Next step , include frequency information
-    return np.array([mean_val, rms_val, zcr_val ], dtype=float)
+    # Frequency features
+    n = len(audio_array)
+    Fs = 44100
+    dt = 1.0 / Fs
+    t_sec = n / Fs
+
+    yf = fft(audio_array)
+    xf = fftfreq(n, dt)[:n // 2]
+    mag = np.abs(yf[:n // 2])
+
+    xf = xf[1:]  # --- remove DC bin (0 Hz) ---
+    mag = mag[1:]  # --- remove DC bin (0 Hz) ---
+
+    mag = np.nan_to_num(mag)
+    mag_norm = mag / np.sum(mag)
+
+    # Features
+    dominant_freq = xf[np.argmax(mag)]
+    centroid = np.sum(xf * mag_norm)
+    bandwidth = np.sqrt(np.sum(((xf - centroid) ** 2) * mag_norm))
+    rolloff = xf[np.where(np.cumsum(mag_norm) >= 0.95)[0][0]]
+    flatness = np.exp(np.mean(np.log(mag + 1e-12))) / (np.mean(mag) + 1e-12)
+
+    return np.array([mean_val, rms_val, zcr_val ,dominant_freq, centroid, bandwidth,rolloff, flatness ], dtype=float)

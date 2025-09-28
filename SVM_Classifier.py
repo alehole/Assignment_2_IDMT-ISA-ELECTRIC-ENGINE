@@ -1,9 +1,9 @@
 from sklearn.model_selection import train_test_split, StratifiedKFold, GridSearchCV
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix
-import features as ft
+import numpy as np
 
 fs=44100
 
@@ -41,16 +41,19 @@ def main(X_train, y_train,X_test, y_test):
 def grid_search(X_train, y_train):
     # ---------- Grid search SVM ----------
     pipe = Pipeline([
-        ("scaler", StandardScaler()),
+        ("scaler", RobustScaler()), #StandardScaler
         ("svc", SVC(kernel="rbf", class_weight="balanced"))
     ])
 
     grid = {
-        "svc__C": [0.1, 1, 10, 100],
-        "svc__gamma": ["scale",1, 0.1,  1e-3, 1e-4]
+        "svc__C": np.logspace(-2, 3, 6),  # 0.01 … 1000
+        "svc__gamma": (["scale", "auto"] +  # heuristics
+                       list(np.logspace(-5, 0, 6))),  # 1e-5 … 1
+        "svc__shrinking": [True, False],
     }
+
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-    gs = GridSearchCV(pipe, grid, scoring="accuracy", cv=cv, n_jobs=-1, verbose=1)
+    gs = GridSearchCV(pipe, grid, scoring="balanced_accuracy", cv=cv, n_jobs=-1, verbose=1)
     gs.fit(X_train, y_train)
 
     return gs.best_params_, gs.best_score_, gs.best_estimator_

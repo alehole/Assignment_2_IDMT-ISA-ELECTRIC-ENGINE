@@ -27,21 +27,22 @@ def main(X_train, y_train,X_test, y_test):
     print("Confusion matrix:\n", confusion_matrix(y_test, y_pred))
 
 def grid_search(X_train, y_train):
-    rf = RandomForestClassifier(random_state=42, class_weight="balanced")
+    rf = RandomForestClassifier(random_state=42, class_weight="balanced", n_jobs=-1)
 
     grid = {
-        "n_estimators": [100, 200, 500],  # number of trees
-        "max_depth": [None, 10, 20, 30],  # tree depth (None = unlimited)
+        "n_estimators": [100, 200, 500,  800],  # number of trees
+        "criterion": ["gini", "entropy"],  # or ["gini", "log_loss"] on newer sklearn
+        "max_depth": [None, 10, 20, 35],  # tree depth (None = unlimited)
         "min_samples_split": [2, 5, 10],  # min samples needed to split a node
-        "min_samples_leaf": [1, 2, 4],  # min samples per leaf
-        "max_features": ["sqrt", "log2"],  # features considered per split
+        "min_samples_leaf": [1, 2, 3 ,4],  # min samples per leaf
+        "max_features": ["sqrt", "log2", 0.9, 0.7],  # features considered per split
     }
 
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     gs_rf = GridSearchCV(
         estimator=rf,
         param_grid=grid,
-        scoring="accuracy",
+        scoring="balanced_accuracy", # or accuracy, or f1_weighted
         cv=cv,
         n_jobs=-1,
         verbose=1
