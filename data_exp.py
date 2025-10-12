@@ -5,21 +5,21 @@ dt=1.0/Fs
 def main():
     n_examples()
 
-    plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
-    plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
-    plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+    #plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 7)  # 5, 6 ,7
+    #plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 7) # 5,6 ,7
+    #plt_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 7) # 5,6, 7
 
-    plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
-    plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
-    plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+    #plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 7)
+    #plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 7)
+    #plt_amp_hist("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 7)
 
-    statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 1)
-    statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 1)
-    statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 1)
+    statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 6)
+    statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 6)
+    statistics("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 6)
 
-    plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 22)
-    plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 22)
-    plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 22)
+    #plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good", 6) # 5, 6 ,7
+    #plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken", 6) # 5, 6 ,7
+    #plt_fft_wav_n("IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine3_heavyload", 6) # 5, 6 ,7
 
 def n_examples():
     train_cut_good_path = "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good"
@@ -88,8 +88,7 @@ def plt_amp_hist(folder_path,n):
     plt.figure()
     plt.hist(audio_array, bins=50)
     plt.title(f"Audio file: {os.path.basename(folder_path) + "/" + file_name}")
-    plt.title("Amplitude distribution")
-    plt.xlabel("Amplitude")
+    plt.xlabel("Amplitude distribution")
     plt.ylabel("Count")
     plt.grid()
     plt.tight_layout()

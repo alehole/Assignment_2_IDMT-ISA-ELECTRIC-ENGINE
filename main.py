@@ -3,7 +3,8 @@ import data_exp,SVM_Classifier
 import features as ft
 
 if __name__ == '__main__':
-    #data_exp.main()
+   #data_exp.main()
+
     train_paths_and_labels = [
         ("good", "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine1_good"),
         ("broken", "IDMT-ISA-ELECTRIC-ENGINE/train_cut/engine2_broken"),
@@ -21,5 +22,5 @@ if __name__ == '__main__':
     print(f"Loaded {len(y_train)} samples. Feature dim: {X_train.shape[1]}")
 
 
-    #SVM_Classifier.main(X_train, y_train,X_test, y_test)
-    RF_Classifier.main(X_train, y_train,X_test, y_test)
+    SVM_Classifier.main(X_train, y_train,X_test, y_test)
+    #RF_Classifier.main(X_train, y_train,X_test, y_test)

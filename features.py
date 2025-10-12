@@ -40,7 +40,7 @@ def features(folder_path):
     std_val = np.std(audio_array)
     rms_val = safe_rms(audio_array)
     ptp_val = np.ptp(audio_array)  # max - min
-    zcr_val = float(((audio_array[:-1] * audio_array[1:]) < 0).mean()) # 2) Zero-crossing rate (proxy for dominant freq)
+    zcr_val = float(((audio_array[:-1] * audio_array[1:]) < 0).mean()) # 2)
 
     # Frequency features
     n = len(audio_array)

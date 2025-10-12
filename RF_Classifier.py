@@ -3,8 +3,6 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.metrics import classification_report, confusion_matrix
 
 def main(X_train, y_train,X_test, y_test):
-
-
     print(y_test[0])  # good, broken, heavyload
     print(X_test[0])  # mean, var, std, rms, ptp
 
